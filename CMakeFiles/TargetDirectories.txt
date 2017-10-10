@@ -1,4 +1,0 @@
-/home/antoine/git/AtelierRTCam/CMakeFiles/edit_cache.dir
-/home/antoine/git/AtelierRTCam/CMakeFiles/rebuild_cache.dir
-/home/antoine/git/AtelierRTCam/CMakeFiles/stabilization.dir
-/home/antoine/git/AtelierRTCam/CMakeFiles/test.dir
