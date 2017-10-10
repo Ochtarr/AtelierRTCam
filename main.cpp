@@ -14,6 +14,8 @@ using namespace std;
 int main(int argc, char **argv)
 {
 	char *buff = new char[1];
+	char *buffLR = new char[1];
+	char *buffUD = new char[1];
 	Serial arduino;
 	
 	if (arduino.Init() == 1) printf("Initialisation COM OK :)\n");
@@ -70,36 +72,40 @@ int main(int argc, char **argv)
 		float seuilX = 30;
 		float seuilY = 30;
 
-		//sprintf(buff, "%c", 0b10110001);
-		//arduino.Write(buff);
-
 		if ((float)(img.rows/2)-ux > -seuilX && (float)(img.rows/2)-ux < seuilX)
 		{
-			printf("NE RIEN FAIRE LR\n");
+			sprintf(buffLR, "%c", 0b00001111);
 		}
 		else if ((float)(img.rows/2)-ux < 0)
 		{
-			printf("GAUCHE LR\n");
+			//printf("GAUCHE LR\n");
+			sprintf(buffLR, "%c", 0b00011111);
 		}
 		else
 		{
-			printf("DROITE LR\n");
+			//printf("DROITE LR\n");
+			sprintf(buffLR, "%c", 0b10011111);
 		}
 
 		if ((float)(img.cols/2)-uy > -seuilY && (float)(img.cols/2)-uy < seuilY)
 		{
-			printf("NE RIEN FAIRE UP\n\n");
+			sprintf(buffUD, "%c", 0b11110000);
 		}
 		else if ((float)(img.cols/2)-uy < 0)
 		{
-			printf("HAUT UP\n");
+			//printf("HAUT UP\n");
+			sprintf(buffUD, "%c", 0b11110001);
 		}
 		else
 		{
-			printf("BAS UP\n");
+			//printf("BAS UP\n");
+			sprintf(buffUD, "%c", 0b11111001);
 		}
 
-	   cv::imshow("w", img);
+		sprintf(buff, "%c", buffLR[0] & buffUD[0]);
+		arduino.Write(buff);
+
+		cv::imshow("w", img);
 
 	   key = cv::waitKey(20);
 	}
