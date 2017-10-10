@@ -6,12 +6,19 @@
 #include "MatOperator.hpp"
 #include "DerivativeMask.h"
 #include "imgProcessing.hpp"
+#include "Serial.hpp"
 
 using namespace cv;
 using namespace std;
 
 int main(int argc, char **argv)
-{	
+{
+	char *buff = new char[1];
+	Serial arduino;
+	
+	if (arduino.Init() == 1) printf("Initialisation COM OK :)\n");
+	else printf("Initialisation COM KO :[\n");
+	
 	#if FREQUENCY == 1
 		struct timeval startTime;
 		struct timeval currTime;
@@ -26,6 +33,7 @@ int main(int argc, char **argv)
 
 	float ux = 0, uy = 0;
 	VideoCapture cap(0);
+	
 	cv::Mat img;
 	int key = 0;
 
@@ -59,10 +67,42 @@ int main(int argc, char **argv)
 
 		imgProcessing::redTracking(img, 100, 120, ux, uy);
 
-		printf("%f %f\n", ux, uy);
+		float seuilX = 30;
+		float seuilY = 30;
+
+		//sprintf(buff, "%c", 0b10110001);
+		//arduino.Write(buff);
+
+		if ((float)(img.rows/2)-ux > -seuilX && (float)(img.rows/2)-ux < seuilX)
+		{
+			printf("NE RIEN FAIRE LR\n");
+		}
+		else if ((float)(img.rows/2)-ux < 0)
+		{
+			printf("GAUCHE LR\n");
+		}
+		else
+		{
+			printf("DROITE LR\n");
+		}
+
+		if ((float)(img.cols/2)-uy > -seuilY && (float)(img.cols/2)-uy < seuilY)
+		{
+			printf("NE RIEN FAIRE UP\n\n");
+		}
+		else if ((float)(img.cols/2)-uy < 0)
+		{
+			printf("HAUT UP\n");
+		}
+		else
+		{
+			printf("BAS UP\n");
+		}
 
 	   cv::imshow("w", img);
 
 	   key = cv::waitKey(20);
 	}
+
+	arduino.Close();
 }

@@ -11,7 +11,6 @@ using namespace std;
 
 int fd1;
 int wr,rd;
-char *buffReceive;
 
 int main()
 {
