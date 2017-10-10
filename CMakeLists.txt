@@ -18,3 +18,7 @@ set(CMAKE_BUILD_TYPE Debug)
 # Hello sera linké avec les bibliothèques d'OpenCV
 
 target_link_libraries (stabilization ${OpenCV_LIBS})
+target_link_libraries (stabilization m)
+
+add_definitions(-DFREQUENCY=1)
+add_definitions(-DGRAPHIC=1)
