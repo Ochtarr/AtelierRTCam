@@ -6,8 +6,8 @@ CMakeFiles/stabilization.dir/DerivativeMask.cpp.o
  /home/antoine/git/AtelierRTCam/DerivativeMask.h
 CMakeFiles/stabilization.dir/MatOperator.cpp.o
  /home/antoine/git/AtelierRTCam/MatOperator.cpp
- /home/antoine/git/AtelierRTCam/MatOperator.h
+ /home/antoine/git/AtelierRTCam/MatOperator.hpp
 CMakeFiles/stabilization.dir/main.cpp.o
  /home/antoine/git/AtelierRTCam/DerivativeMask.h
- /home/antoine/git/AtelierRTCam/MatOperator.h
+ /home/antoine/git/AtelierRTCam/MatOperator.hpp
  /home/antoine/git/AtelierRTCam/main.cpp

@@ -2,8 +2,8 @@
 #include <stdio.h>
 #include <opencv/cv.hpp>
 #include "DerivativeMask.h"
-#include "MatOperator.h"
 #include <iostream>
+#include "MatOperator.hpp"
 
 
 
@@ -27,14 +27,17 @@ int main(int argc, char **argv)
 	    namedWindow("w", 1);
 	    namedWindow("wo", 1);
 	    namedWindow("wa", 1);
+	    namedWindow("wb", 1);
 	    DerivativeMask kern(SOBEL_3_3_HORIZONTAL);
 	    DerivativeMask kern2(SOBEL_3_3_VERTICAL);
+	    DerivativeMask kern3(GAUSSIAN_3_3_SIGMA_3);
 
 		   cap >> img;
 		   Mat Temp(img.size(),CV_8U);
 		   Mat convolution_vert(img.size(),CV_8U);
 		   Mat convolution_horizontal(img.size(),CV_8U);
 		   Mat convolution_sum(img.size(),CV_8U);
+		   Mat convolution_blur(img.size(),CV_8U);
 
 	// Boucle tant que l'utilisateur n'appuie pas sur la touche q (ou Q)
 	while(key != 'q' && key != 'Q') {
@@ -44,13 +47,15 @@ int main(int argc, char **argv)
 	   cvtColor(img, Temp, cv::COLOR_RGB2GRAY);
 
 
-	   kern.convolve(Temp , convolution_vert);
-	   kern2.convolve(Temp , convolution_horizontal);
-	   MatOperator::addMat(convolution_vert , convolution_horizontal , convolution_sum);
+//	   kern.convolve(Temp , convolution_vert);
+//	   kern2.convolve(Temp , convolution_horizontal);
+	   kern3.convolve(Temp , convolution_blur);
+//	   MatOperator::addMat(convolution_vert , convolution_horizontal , convolution_sum);
 
-	   cv::imshow("w", convolution_vert);
-	   cv::imshow("wo", convolution_horizontal);
-	   cv::imshow("wa", convolution_sum);
+//	   cv::imshow("w", convolution_vert);
+//	   cv::imshow("wo", convolution_horizontal);
+//	   cv::imshow("wa", convolution_sum);
+	   cv::imshow("wb", convolution_blur);
 //	   Sobel( Temp, convolution,  CV_16S, 1, 0, 3 );
 	  // convertScaleAbs( convolution, convolution_res );
 

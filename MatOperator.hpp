@@ -5,8 +5,8 @@
  *      Author: antoine
  */
 
-#ifndef MATOPERATOR_H_
-#define MATOPERATOR_H_
+#ifndef MATOPERATOR_HPP_
+#define MATOPERATOR_HPP_
 #include <opencv2/opencv.hpp>
 
 namespace cv {
@@ -17,8 +17,9 @@ namespace cv {
 class MatOperator {
 public:
 	static void addMat( const cv::Mat& left , const cv::Mat& right ,  cv::Mat& res );
+	static void mulMat( const cv::Mat& left , const cv::Mat& right ,  cv::Mat& res );
 };
 
 } /* namespace cv */
 
-#endif /* MATOPERATOR_H_ */
+#endif /* MATOPERATOR_HPP_ */

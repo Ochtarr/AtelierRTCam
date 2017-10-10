@@ -5,9 +5,9 @@ CMakeFiles/stabilization.dir/DerivativeMask.cpp.o: DerivativeMask.cpp
 CMakeFiles/stabilization.dir/DerivativeMask.cpp.o: DerivativeMask.h
 
 CMakeFiles/stabilization.dir/MatOperator.cpp.o: MatOperator.cpp
-CMakeFiles/stabilization.dir/MatOperator.cpp.o: MatOperator.h
+CMakeFiles/stabilization.dir/MatOperator.cpp.o: MatOperator.hpp
 
 CMakeFiles/stabilization.dir/main.cpp.o: DerivativeMask.h
-CMakeFiles/stabilization.dir/main.cpp.o: MatOperator.h
+CMakeFiles/stabilization.dir/main.cpp.o: MatOperator.hpp
 CMakeFiles/stabilization.dir/main.cpp.o: main.cpp
 
