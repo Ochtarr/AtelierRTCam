@@ -1,0 +1,44 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/antoine/git/AtelierRTCam/DerivativeMask.cpp
+DerivativeMask.h
+/home/antoine/git/AtelierRTCam/DerivativeMask.h
+iostream
+-
+
+/home/antoine/git/AtelierRTCam/DerivativeMask.h
+opencv2/opencv.hpp
+/home/antoine/git/AtelierRTCam/opencv2/opencv.hpp
+opencv2/core/core.hpp
+/home/antoine/git/AtelierRTCam/opencv2/core/core.hpp
+math.h
+-
+
+/home/antoine/git/AtelierRTCam/MatOperator.cpp
+MatOperator.hpp
+/home/antoine/git/AtelierRTCam/MatOperator.hpp
+
+/home/antoine/git/AtelierRTCam/MatOperator.hpp
+opencv2/opencv.hpp
+-
+
+/home/antoine/git/AtelierRTCam/main.cpp
+stdlib.h
+-
+stdio.h
+-
+opencv/cv.hpp
+-
+DerivativeMask.h
+/home/antoine/git/AtelierRTCam/DerivativeMask.h
+iostream
+-
+MatOperator.hpp
+/home/antoine/git/AtelierRTCam/MatOperator.hpp
+
