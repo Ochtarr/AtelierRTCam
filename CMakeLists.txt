@@ -29,6 +29,10 @@ add_executable (harrisTracking harrisTracking.cpp imgProcessing.cpp Serial.cpp )
 target_link_libraries (harrisTracking ${OpenCV_LIBS})
 target_link_libraries (harrisTracking m)
 
+add_executable (finalTrack main.cpp Serial.cpp PID.cpp)
+target_link_libraries (finalTrack ${OpenCV_LIBS})
+target_link_libraries (finalTrack m)
+
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall")
 add_definitions(-DFREQUENCY=1)
