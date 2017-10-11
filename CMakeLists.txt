@@ -20,10 +20,14 @@ set(CMAKE_BUILD_TYPE Debug)
 target_link_libraries (colorTracking ${OpenCV_LIBS})
 target_link_libraries (colorTracking m)
 
-
 add_executable (trackingHarris harrisCornerDetection.cpp CornerDetector.cpp )
 target_link_libraries (trackingHarris ${OpenCV_LIBS})
 target_link_libraries (trackingHarris m)
+
+add_executable (finalTrack main.cpp Serial.cpp PID.cpp)
+target_link_libraries (finalTrack ${OpenCV_LIBS})
+target_link_libraries (finalTrack m)
+
 
 add_definitions(-DFREQUENCY=1)
 add_definitions(-DGRAPHIC=1)
