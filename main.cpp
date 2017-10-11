@@ -13,13 +13,12 @@ using namespace std;
 
 int main(int argc, char **argv)
 {
-	char *buff = new char[1];
-	char *buffLR = new char[1];
-	char *buffUD = new char[1];
 	Serial arduino;
-	
-	if (arduino.Init() == 1) printf("Initialisation COM OK :)\n");
-	else printf("Initialisation COM KO :[\n");
+	arduino.Init();
+
+	char *buff = new char[1];
+	char *buffUD = new char[1];
+	char *buffLR = new char[1];
 	
 	#if FREQUENCY == 1
 		struct timeval startTime;
@@ -69,45 +68,33 @@ int main(int argc, char **argv)
 
 		imgProcessing::redTracking(img, 100, 120, ux, uy);
 
-		float seuilX = 30;
-		float seuilY = 30;
+		float seuilX = 50;
+		float seuilY = 50;	
 
-		if ((float)(img.rows/2)-ux > -seuilX && (float)(img.rows/2)-ux < seuilX)
+		if (ux != 0 || uy != 0)
 		{
-			sprintf(buffLR, "%c", 0b00001111);
-		}
-		else if ((float)(img.rows/2)-ux < 0)
-		{
-			//printf("GAUCHE LR\n");
-			sprintf(buffLR, "%c", 0b00011111);
-		}
-		else
-		{
-			//printf("DROITE LR\n");
-			sprintf(buffLR, "%c", 0b10011111);
-		}
+			if ((float)(img.rows/2)-ux > -seuilX && (float)(img.rows/2)-ux < seuilX)
+				sprintf(buffLR, "%c", 0b11110000);
+			else if ((float)(img.rows/2)-ux < 0)
+				sprintf(buffLR, "%c", 0b11110111);
+			else
+			sprintf(buffLR, "%c", 0b11111111);
 
-		if ((float)(img.cols/2)-uy > -seuilY && (float)(img.cols/2)-uy < seuilY)
-		{
-			sprintf(buffUD, "%c", 0b11110000);
-		}
-		else if ((float)(img.cols/2)-uy < 0)
-		{
-			//printf("HAUT UP\n");
-			sprintf(buffUD, "%c", 0b11110001);
-		}
-		else
-		{
-			//printf("BAS UP\n");
-			sprintf(buffUD, "%c", 0b11111001);
+			if ((float)(img.cols/2)-uy > -seuilY && (float)(img.cols/2)-uy < seuilY)
+				sprintf(buffUD, "%c", 0b00001111);
+			else if ((float)(img.cols/2)-uy < 0)
+				sprintf(buffUD, "%c", 0b11111111);
+			else
+				sprintf(buffUD, "%c", 0b01111111);
 		}
 
 		sprintf(buff, "%c", buffLR[0] & buffUD[0]);
+
 		arduino.Write(buff);
 
 		cv::imshow("w", img);
 
-	   key = cv::waitKey(20);
+		key = cv::waitKey(20);
 	}
 
 	arduino.Close();

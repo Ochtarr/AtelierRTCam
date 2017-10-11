@@ -21,6 +21,7 @@ class Serial {
 protected:
 	int fd1;
 	int wr;
+	struct termios toptions;
 public:
 	int Init();
 	void Close();
