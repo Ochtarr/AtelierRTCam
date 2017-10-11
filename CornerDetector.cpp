@@ -238,6 +238,7 @@ void CornerDetector::GradientCornerDetection(cv::Mat& img,
 				if (res != NULL) {
 					res->push_back(cv::Point2d(row_cursor, col_cursor));
 				}
+			}
 
 				res_harris->at<float>(row_cursor, col_cursor) = k;
 
@@ -245,7 +246,7 @@ void CornerDetector::GradientCornerDetection(cv::Mat& img,
 					img_res->at<cv::Vec3b>(row_cursor, col_cursor)[2] =
 							(uchar) k * 255;
 				}
-			}
+
 		}
 	}
 

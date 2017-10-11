@@ -40,8 +40,8 @@ int main(int argc, char **argv)
 
 	VideoCapture cap(0); // open the default camera
 
-//	cap.set(CV_CAP_PROP_FRAME_WIDTH,320);
-//	cap.set(CV_CAP_PROP_FRAME_HEIGHT,240);
+	cap.set(CV_CAP_PROP_FRAME_WIDTH,320);
+	cap.set(CV_CAP_PROP_FRAME_HEIGHT,240);
 
 	    if(!cap.isOpened())  // check if we succeeded
 	        return -1;
@@ -54,7 +54,7 @@ int main(int argc, char **argv)
 		   int height = new_size.height;
 		 int width = new_size.width;
 		   Mat Temp(new_size,CV_8U);
-		   Mat img_color(img);
+		   Mat img_color(img.size(),CV_8UC3 );
 
 
 		   vector<cv::Point2d> res;
@@ -131,7 +131,7 @@ cv::Mat tmp2(height , width  , CV_32F);
 							&grad_vertical_horizontal_2_blurred
 							);
 
-//std::cout << res.size() << endl;
+
 
 		imshow("original",img);
 
