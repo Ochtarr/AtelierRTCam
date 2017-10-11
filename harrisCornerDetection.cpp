@@ -23,7 +23,7 @@ int main(int argc, char **argv)
 {
 	int key = 0;
 	cv::Mat img;
-	cv::Mat old_img;
+
 	
 
 	#if FREQUENCY == 1
@@ -46,17 +46,15 @@ int main(int argc, char **argv)
 	    if(!cap.isOpened())  // check if we succeeded
 	        return -1;
 
-	    namedWindow("wa", 1);
-
-	    namedWindow("wb", 1);
 
 
-		   cap >> old_img;
-		   Size new_size =  old_img.size();
+
+		   cap >> img;
+		   Size new_size =  img.size();
 		   int height = new_size.height;
 		 int width = new_size.width;
 		   Mat Temp(new_size,CV_8U);
-		   Mat img_color(old_img.size(), CV_8UC3);
+		   Mat img_color(img);
 
 
 		   vector<cv::Point2d> res;
@@ -117,7 +115,7 @@ cv::Mat tmp2(height , width  , CV_32F);
 		CornerDetector::GradientCornerDetection(
 							Temp,
 							&res_harris,
-							&res,
+							NULL,
 							&img_color,
 							&grad_vertical,
 							&grad_horizontal,
@@ -134,16 +132,16 @@ cv::Mat tmp2(height , width  , CV_32F);
 							);
 
 //std::cout << res.size() << endl;
-	res.erase(res.begin() , res.end());
-		imshow("wb",img);
 
-		imshow("wa",old_img);
+		imshow("original",img);
+
+		imshow("harrisDetector",res_harris);
+		imshow("harris img",img_color);
 
 
 	   key = cv::waitKey(20);
 
 
-	   img.copyTo(old_img);
 
 	}
 

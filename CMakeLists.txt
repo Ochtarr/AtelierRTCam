@@ -12,13 +12,18 @@ INCLUDE_DIRECTORIES( ${OpenCV_INCLUDE_DIRS} )
 
 # Exécutable "hello", compilé à partir du fichier helloworld.c
 
-add_executable (stabilization main.cpp DerivativeMask.cpp CornerDetector.cpp MatOperator.cpp)
+add_executable (colorTracking colorTracking.cpp imgProcessing.cpp Serial.cpp)
 enable_testing()
 set(CMAKE_BUILD_TYPE Debug)
 # Hello sera linké avec les bibliothèques d'OpenCV
 
-target_link_libraries (stabilization ${OpenCV_LIBS})
-target_link_libraries (stabilization m)
+target_link_libraries (colorTracking ${OpenCV_LIBS})
+target_link_libraries (colorTracking m)
+
+
+add_executable (trackingHarris harrisCornerDetection.cpp CornerDetector.cpp )
+target_link_libraries (trackingHarris ${OpenCV_LIBS})
+target_link_libraries (trackingHarris m)
 
 add_definitions(-DFREQUENCY=1)
 add_definitions(-DGRAPHIC=1)
