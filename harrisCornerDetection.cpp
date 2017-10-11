@@ -2,7 +2,7 @@
 #include <iostream>
 #include <sys/time.h>
 #include <opencv/cv.hpp>
-#include "DerivativeMask.h"
+
 #include "MatOperator.hpp"
 #include <iostream>
 
@@ -40,8 +40,8 @@ int main(int argc, char **argv)
 
 	VideoCapture cap(0); // open the default camera
 
-	cap.set(CV_CAP_PROP_FRAME_WIDTH,320);
-	cap.set(CV_CAP_PROP_FRAME_HEIGHT,240);
+//	cap.set(CV_CAP_PROP_FRAME_WIDTH,320);
+//	cap.set(CV_CAP_PROP_FRAME_HEIGHT,240);
 
 	    if(!cap.isOpened())  // check if we succeeded
 	        return -1;
@@ -62,20 +62,17 @@ int main(int argc, char **argv)
 
 
 		   //add antoine
-
+			cv::Mat_<float>  res_harris( height , width);
 			cv::Mat_<float> grad_vertical(height , width );
 			cv::Mat_<float> grad_horizontal(height , width);
 			cv::Mat_<float> grad_vertical_horizontal(height , width);
 			cv::Mat_<float> grad_vertical_2(height , width);
 			cv::Mat_<float> grad_horizontal_2(height , width);
-			cv::Mat_<float> grad_vertical_horizontal_2(height , width);
-			cv::Mat_<float> grad_vertical_blurred(height , width);
-			cv::Mat_<float> grad_horizontal_blurred(height , width);
 			cv::Mat_<float> grad_vertical_horizontal_blurred(height , width);
 			cv::Mat_<float> grad_vertical_2_blurred(height , width);
 			cv::Mat_<float> grad_horizontal_2_blurred(height , width);
-			cv::Mat_<float> grad_vertical_horizontal_2_blurred(height , width);
-			cv::Mat_<float>  res_harris( height , width);
+
+
 
 
 
@@ -122,13 +119,10 @@ cv::Mat tmp2(height , width  , CV_32F);
 							&grad_vertical_horizontal,
 							&grad_vertical_2,
 							&grad_horizontal_2,
-							&grad_vertical_horizontal_2,
-							&grad_vertical_blurred,
-							&grad_horizontal_blurred,
 							&grad_vertical_horizontal_blurred,
 							&grad_vertical_2_blurred,
-							&grad_horizontal_2_blurred,
-							&grad_vertical_horizontal_2_blurred
+							&grad_horizontal_2_blurred
+
 							);
 
 
