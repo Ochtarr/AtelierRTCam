@@ -14,6 +14,10 @@ namespace cv {
  *
  */
 class Convolution {
+public:
+
+
+
 };
 
 } /* namespace cv */

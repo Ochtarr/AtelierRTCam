@@ -32,16 +32,15 @@ void DerivativeMask::convolve(cv::Mat& img, cv::Mat& img_res) {
 	int kern_center_row = this->mat.rows / 2;
 	float kernel_sum = 0;
 
-	for (int krow_cursor = 0; krow_cursor < (this->mat.rows);
-				++krow_cursor) {
+	for (int krow_cursor = 0; krow_cursor < (this->mat.rows); ++krow_cursor) {
 
-			for (int kcol_cursor = 0; kcol_cursor < (this->mat.cols);
-					++kcol_cursor) {
-				kernel_sum += this->mat.at<float>(krow_cursor , kcol_cursor);
-			}
+		for (int kcol_cursor = 0; kcol_cursor < (this->mat.cols);
+				++kcol_cursor) {
+			kernel_sum += this->mat.at<float>(krow_cursor, kcol_cursor);
+		}
 	}
 	//factor de correction du kernel
-	(kernel_sum == 0)?kernel_sum = 1:  kernel_sum = 1/kernel_sum;
+	(kernel_sum == 0) ? kernel_sum = 1 : kernel_sum = 1 / kernel_sum;
 
 //	std::cout << "src img type : "<< img.type() << std::endl;
 //	std::cout << "dest img type : "<< img_res.type() << std::endl;
@@ -73,11 +72,12 @@ void DerivativeMask::convolve(cv::Mat& img, cv::Mat& img_res) {
 							&& col_cursor_convol < (img.cols)) {
 						int val_img = (int) img.at<uchar>(row_cursor_convol,
 								col_cursor_convol);
-						int val_kernel =  this->mat.at<float>(
-								row_cursor_kern, col_cursor_kern);
+						int val_kernel = this->mat.at<float>(row_cursor_kern,
+								col_cursor_kern);
 
 						tmp += val_img * val_kernel;
-						std::cout << "img : "<< val_img <<  "kern : "<< val_kernel << "res : "<< tmp <<std::endl;
+						std::cout << "img : " << val_img << "kern : "
+								<< val_kernel << "res : " << tmp << std::endl;
 
 					}
 				}
@@ -90,7 +90,8 @@ void DerivativeMask::convolve(cv::Mat& img, cv::Mat& img_res) {
 			if (tmp > 255)
 				tmp = 255;
 
-			img_res.at<uchar>(row_cursor, col_cursor) = (uchar) tmp * kernel_sum;
+			img_res.at<uchar>(row_cursor, col_cursor) = (uchar) tmp
+					* kernel_sum;
 //			 std::cout <<(int)img_res.at<uchar>(row_cursor , col_cursor ) << std::endl;
 
 		}

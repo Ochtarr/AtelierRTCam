@@ -12,7 +12,7 @@ INCLUDE_DIRECTORIES( ${OpenCV_INCLUDE_DIRS} )
 
 # Exécutable "hello", compilé à partir du fichier helloworld.c
 
-add_executable (stabilization main.cpp DerivativeMask.cpp MatOperator.cpp)
+add_executable (stabilization main.cpp DerivativeMask.cpp CornerDetector.cpp MatOperator.cpp)
 enable_testing()
 set(CMAKE_BUILD_TYPE Debug)
 # Hello sera linké avec les bibliothèques d'OpenCV
