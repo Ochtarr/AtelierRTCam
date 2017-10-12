@@ -112,7 +112,8 @@ cv::Mat tmp2(height , width  , CV_32F);
 		CornerDetector::GradientCornerDetection(
 							Temp,
 							&res_harris,
-							NULL,
+							NULL
+							,
 							&img_color,
 							&grad_vertical,
 							&grad_horizontal,
@@ -131,6 +132,10 @@ cv::Mat tmp2(height , width  , CV_32F);
 
 		imshow("harrisDetector",res_harris);
 		imshow("harris img",img_color);
+
+		imshow("horizontal grad",grad_horizontal);
+		imshow("vertical grad",grad_vertical);
+
 
 
 	   key = cv::waitKey(20);

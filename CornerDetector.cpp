@@ -223,8 +223,9 @@ void CornerDetector::GradientCornerDetection(
 					res->push_back(cv::Point2d(row_cursor, col_cursor));
 				}
 				if (img_res != NULL) {
-					img_res->at<cv::Vec3b>(row_cursor, col_cursor)[2] =
-							(uchar) k * 255;
+#if GRAPHIC ==  1
+							cv::circle(*img_res, cv::Point(col_cursor, row_cursor),1, cv::Scalar(0,0,255));
+#endif
 				}
 			}
 

@@ -10,12 +10,14 @@ namespace imgProcessing
 
 
 	void GradientCornerDetection(
-			cv::Mat& img,
+			cv::Mat* img,
+			cv::Mat* prev_img,
 			cv::Mat_<float>* res_harris,
 			cv::Mat_<float>* prev_res_harris,
 			float &ux,
 			float &uy,
-			float threshold = 0.5,
+			float threshold = 4,
+			float windows_size = 30,
 			std::vector<cv::Point2d>* res = NULL,
 			cv::Mat* img_res = NULL,
 			cv::Mat_<float>* grad_vertical = NULL,

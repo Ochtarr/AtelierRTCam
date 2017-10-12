@@ -22,7 +22,7 @@ int main(int argc, char **argv)
 	int key = 0;
 	float ux = 0;
 	float uy = 0;
-	float threshold =  0.5f;
+	float threshold =  0.8f;
 
 	cv::Mat img;
 
@@ -56,18 +56,15 @@ int main(int argc, char **argv)
 		   Size new_size =  img.size();
 		   int height = new_size.height;
 		   int width = new_size.width;
-		   Mat Temp(new_size,CV_8U);
-		   Mat img_color(img.size(),CV_8UC3 );
 
 
-		   vector<cv::Point2d> res;
+
 
 
 
 		   //add antoine
-			cv::Mat_<float>  res_harris( height , width);
-			cv::Mat_<float> prev_res_harris( height , width);
-;
+
+
 			cv::Mat_<float> grad_vertical(height , width );
 			cv::Mat_<float> grad_horizontal(height , width);
 			cv::Mat_<float> grad_vertical_horizontal(height , width);
@@ -81,19 +78,31 @@ int main(int argc, char **argv)
 
 
 
+			cv::Mat img_res(height , 2*width  , CV_8UC1);
 
 
 
 
 
-
-
+cv::Mat img_tab[2];
+cv::Mat img_grey_tab[2];
+cv::Mat_<float> img_harris_tab[2];
+img_harris_tab[0] = cv::Mat::zeros(height , width , CV_32S);
+img_harris_tab[1] = cv::Mat::zeros(height , width , CV_32S);
+int idx = 0;
+cap >> img_tab[idx];
+cvtColor(img_tab[idx], img_grey_tab[idx], cv::COLOR_RGB2GRAY);
 
 	// Boucle tant que l'utilisateur n'appuie pas sur la touche q (ou Q)
 	while(key != 'q' && key != 'Q')
 	{
-		cap >> img;
-		img.copyTo(img_color);
+
+		++idx;
+		idx = idx % 2;
+		cap >> img_tab[idx];
+//		std::cout<< idx <<endl;
+		cvtColor(img_tab[idx], img_grey_tab[idx], cv::COLOR_RGB2GRAY);
+
 
 
 		#if FREQUENCY == 1
@@ -112,38 +121,40 @@ int main(int argc, char **argv)
 					printf("%d FPS\n", (int) ceil(1.*frameNb/lap));
 			}		
 		#endif
-cv::Mat tmp2(height , width  , CV_32F);
-		cvtColor(img, Temp, cv::COLOR_RGB2GRAY);
+
+
 		imgProcessing::GradientCornerDetection(
-							Temp,
-							 &res_harris,
-							 &prev_res_harris,
+							&img_grey_tab[idx],
+							&img_grey_tab[(idx+1)%2],
+							&img_harris_tab[idx],
+							&img_harris_tab[(idx+1)%2],
 							 ux,
 							 uy,
-							 threshold
+							 threshold,
+							 10
 							 ,NULL,
-							&img_color
-//							&grad_vertical,
-//							&grad_horizontal,
-//							&grad_vertical_horizontal,
-//							&grad_vertical_2,
-//							&grad_horizontal_2,
-//							&grad_vertical_horizontal_blurred,
-//							&grad_vertical_2_blurred,
-//							&grad_horizontal_2_blurred
+							&img_res,
+							&grad_vertical,
+							&grad_horizontal,
+							&grad_vertical_horizontal,
+							&grad_vertical_2,
+							&grad_horizontal_2,
+							&grad_vertical_horizontal_blurred,
+							&grad_vertical_2_blurred,
+							&grad_horizontal_2_blurred
 
 							);
 
+		 cout << "vx :" << ux << " vy :" <<uy << endl,
 
+		imshow("original",img_res);
 
-		imshow("original",img);
+		imshow("harrisDetector",img_harris_tab[idx]);
+		imshow("harrisDetectorprev",img_harris_tab[(idx+1)%2]);
 
-		imshow("harrisDetector",res_harris);
-		imshow("harris img",img_color);
 
 
 	   key = cv::waitKey(20);
-
 
 
 	}
