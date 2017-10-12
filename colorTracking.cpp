@@ -4,7 +4,7 @@
 #include <opencv/cv.hpp>
 
 #include "MatOperator.hpp"
-#include "DerivativeMask.h"
+
 #include "imgProcessing.hpp"
 #include "Serial.hpp"
 #include "PID.hpp"

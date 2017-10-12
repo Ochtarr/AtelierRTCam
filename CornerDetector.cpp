@@ -10,31 +10,30 @@
 
 namespace std {
 
-void CornerDetector::GradientCornerDetection(cv::Mat& img,
-		cv::Mat_<float>* res_harris, vector<cv::Point2d>* res, cv::Mat* img_res,
-		cv::Mat_<float>* grad_vertical, cv::Mat_<float>* grad_horizontal,
+void CornerDetector::GradientCornerDetection(
+		cv::Mat& img,
+		cv::Mat_<float>* res_harris,
+		vector<cv::Point2d>* res,
+		cv::Mat* img_res,
+		cv::Mat_<float>* grad_vertical,
+		cv::Mat_<float>* grad_horizontal,
 		cv::Mat_<float>* grad_vertical_horizontal,
-		cv::Mat_<float>* grad_vertical_2, cv::Mat_<float>* grad_horizontal_2,
-		cv::Mat_<float>* grad_vertical_horizontal_2,
-		cv::Mat_<float>* grad_vertical_blurred,
-		cv::Mat_<float>* grad_horizontal_blurred,
+		cv::Mat_<float>* grad_vertical_2,
+		cv::Mat_<float>* grad_horizontal_2,
 		cv::Mat_<float>* grad_vertical_horizontal_blurred,
 		cv::Mat_<float>* grad_vertical_2_blurred,
-		cv::Mat_<float>* grad_horizontal_2_blurred,
-		cv::Mat_<float>* grad_vertical_horizontal_2_blurred) {
+		cv::Mat_<float>* grad_horizontal_2_blurred) {
 
 	bool grad_vertical_ini = false;
 	bool grad_horizontal_ini = false;
 	bool grad_vertical_horizontal_ini = false;
 	bool grad_vertical_2_ini = false;
 	bool grad_horizontal_2_ini = false;
-	bool grad_vertical_horizontal_2_ini = false;
-	bool grad_vertical_blurred_ini = false;
-	bool grad_horizontal_blurred_ini = false;
+
 	bool grad_vertical_horizontal_blurred_ini = false;
 	bool grad_vertical_2_blurred_ini = false;
 	bool grad_horizontal_2_blurred_ini = false;
-	bool grad_vertical_horizontal_2_blurred_ini = false;
+
 
 	if (grad_vertical == NULL) {
 		grad_vertical = new cv::Mat_<float>(img.rows, img.cols);
@@ -57,18 +56,7 @@ void CornerDetector::GradientCornerDetection(cv::Mat& img,
 		grad_horizontal_2_ini = true;
 
 	}
-	if (grad_vertical_horizontal_2 == NULL) {
-		grad_vertical_horizontal_2 = new cv::Mat_<float>(img.rows, img.cols);
-		grad_vertical_horizontal_2_ini = true;
-	}
-	if (grad_vertical_blurred == NULL) {
-		grad_vertical_blurred = new cv::Mat_<float>(img.rows, img.cols);
-		grad_vertical_blurred_ini = true;
-	}
-	if (grad_horizontal_blurred == NULL) {
-		grad_horizontal_blurred = new cv::Mat_<float>(img.rows, img.cols);
-		grad_horizontal_blurred_ini = true;
-	}
+
 	if (grad_vertical_horizontal_blurred == NULL) {
 		grad_vertical_horizontal_blurred = new cv::Mat_<float>(img.rows,
 				img.cols);
@@ -83,11 +71,7 @@ void CornerDetector::GradientCornerDetection(cv::Mat& img,
 		grad_horizontal_2_blurred_ini = true;
 	}
 
-	if (grad_vertical_horizontal_2_blurred == NULL) {
-		grad_vertical_horizontal_2_blurred = new cv::Mat_<float>(img.rows,
-				img.cols);
-		grad_vertical_horizontal_2_blurred_ini = true;
-	}
+
 
 	int kern_center_col = 1;
 	int kern_center_row = 1;
@@ -238,14 +222,15 @@ void CornerDetector::GradientCornerDetection(cv::Mat& img,
 				if (res != NULL) {
 					res->push_back(cv::Point2d(row_cursor, col_cursor));
 				}
-			}
-
-				res_harris->at<float>(row_cursor, col_cursor) = k;
-
 				if (img_res != NULL) {
 					img_res->at<cv::Vec3b>(row_cursor, col_cursor)[2] =
 							(uchar) k * 255;
 				}
+			}
+
+				res_harris->at<float>(row_cursor, col_cursor) = k;
+
+
 
 		}
 	}
@@ -265,15 +250,6 @@ void CornerDetector::GradientCornerDetection(cv::Mat& img,
 	if (grad_horizontal_2_ini) {
 		delete grad_horizontal_2;
 	}
-	if (grad_vertical_horizontal_2_ini) {
-		delete grad_vertical_horizontal_2;
-	}
-	if (grad_vertical_blurred_ini) {
-		delete grad_vertical_blurred;
-	}
-	if (grad_horizontal_blurred_ini) {
-		delete grad_horizontal_blurred;
-	}
 	if (grad_vertical_horizontal_blurred_ini) {
 		delete grad_vertical_horizontal_blurred;
 	}
@@ -282,9 +258,6 @@ void CornerDetector::GradientCornerDetection(cv::Mat& img,
 	}
 	if (grad_horizontal_2_blurred_ini) {
 		delete grad_horizontal_2_blurred;
-	}
-	if (grad_vertical_horizontal_2_blurred_ini) {
-		delete grad_vertical_horizontal_2_blurred;
 	}
 
 }
@@ -308,13 +281,13 @@ void CornerDetector::HarrisCornerDetection(cv::Mat& img, float lambda,
 	bool grad_vertical_horizontal_ini = false;
 	bool grad_vertical_2_ini = false;
 	bool grad_horizontal_2_ini = false;
-	bool grad_vertical_horizontal_2_ini = false;
+
 	bool grad_vertical_blurred_ini = false;
 	bool grad_horizontal_blurred_ini = false;
-	bool grad_vertical_horizontal_blurred_ini = false;
+
 	bool grad_vertical_2_blurred_ini = false;
 	bool grad_horizontal_2_blurred_ini = false;
-	bool grad_vertical_horizontal_2_blurred_ini = false;
+
 
 	if (grad_vertical == NULL) {
 		grad_vertical = new cv::Mat_<float>(img.rows, img.cols);
@@ -355,7 +328,6 @@ void CornerDetector::HarrisCornerDetection(cv::Mat& img, float lambda,
 		grad_horizontal_2_blurred_ini = true;
 	}
 
-	vector<cv::Point2d>* res = new std::vector<cv::Point2d>();
 
 	int kern_center_col = 1;
 	int kern_center_row = 1;
