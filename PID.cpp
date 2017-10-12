@@ -7,7 +7,7 @@
 
  #include "PID.hpp"
 
- PID::PID(int mP, int mLar, int mHaut)
+ PID::PID(float mP, int mLar, int mHaut)
  {
      p = mP;
      lar = mLar;

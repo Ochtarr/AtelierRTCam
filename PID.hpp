@@ -11,11 +11,11 @@
  
  class PID {
  protected:
-     int p;
+     float p;
      int lar;
      int haut;
  public:
-    PID(int mP, int mLar, int mHaut);
+    PID(float mP, int mLar, int mHaut);
     void Calcul(int x1, int y1, int x2, int y2, int *result);
  };
  

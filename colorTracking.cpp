@@ -7,6 +7,7 @@
 #include "DerivativeMask.h"
 #include "imgProcessing.hpp"
 #include "Serial.hpp"
+#include "PID.hpp"
 
 using namespace cv;
 using namespace std;
@@ -68,33 +69,34 @@ int main(int argc, char **argv)
 
 		imgProcessing::redTracking(img, 100, 120, ux, uy);
 
-		float seuilX = 50;
-		float seuilY = 50;	
-
-		if (ux != 0 || uy != 0)
+		if (ux > 0 && uy > 0)
 		{
-			if ((float)(img.rows/2)-ux > -seuilX && (float)(img.rows/2)-ux < seuilX)
-				sprintf(buffLR, "%c", 0b11110000);
-			else if ((float)(img.rows/2)-ux < 0)
-				sprintf(buffLR, "%c", 0b11110111);
-			else
-			sprintf(buffLR, "%c", 0b11111111);
+			PID adapterCommand(1, img.cols, img.rows); //coeff P, largeur img, hauteur img
+			int resultAdapter[4];
 
-			if ((float)(img.cols/2)-uy > -seuilY && (float)(img.cols/2)-uy < seuilY)
-				sprintf(buffUD, "%c", 0b00001111);
-			else if ((float)(img.cols/2)-uy < 0)
-				sprintf(buffUD, "%c", 0b11111111);
-			else
-				sprintf(buffUD, "%c", 0b01111111);
+			printf("UX = %f\n", ux);
+
+			adapterCommand.Calcul(img.cols/2, img.rows/2, ux, uy, resultAdapter); //x1, y1, x2, y2
+			
+			if (resultAdapter[2] == 1) sprintf(buffLR, "%c", (resultAdapter[3] | 0b00000000)<<4);
+			else sprintf(buffLR, "%c", (resultAdapter[3] | 0b00001000)<<4);
+			
+			if (resultAdapter[0] == 0) sprintf(buffUD, "%c", (resultAdapter[1] | 0b00000000));
+			else sprintf(buffUD, "%c", (resultAdapter[1] | 0b00001000));
+
+			printf("A : %d\n", resultAdapter[1]);
+			printf("B : %d\n", resultAdapter[3]);
+
+			sprintf(buff, "%c", buffLR[0] | buffUD[0]);
+
+			printf("C : %d\n", buff[0]);
+
+			arduino.Write(buff);
+
+			cv::imshow("w", img);
+
+			key = cv::waitKey(20);
 		}
-
-		sprintf(buff, "%c", buffLR[0] & buffUD[0]);
-
-		arduino.Write(buff);
-
-		cv::imshow("w", img);
-
-		key = cv::waitKey(20);
 	}
 
 	arduino.Close();
