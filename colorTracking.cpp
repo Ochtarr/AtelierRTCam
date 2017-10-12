@@ -1,3 +1,14 @@
+/**
+ * \file colorTracking.cpp
+ * \brief Main colorTracking
+ * \author All teams
+ * \version 0.2
+ * \date 11 octobre 2017
+ *
+ * Tracking de couleur rouge. Centre de gravité comparé au centre de l'image + adaptation des commandes des servos.
+ *
+ */
+
 #include <math.h>
 #include <iostream>
 #include <sys/time.h>
@@ -71,10 +82,8 @@ int main(int argc, char **argv)
 
 		if (ux > 0 && uy > 0)
 		{
-			PID adapterCommand(1, img.cols, img.rows); //coeff P, largeur img, hauteur img
+			PID adapterCommand(1.2, img.cols, img.rows); //coeff P, largeur img, hauteur img
 			int resultAdapter[4];
-
-			printf("UX = %f\n", ux);
 
 			adapterCommand.Calcul(img.cols/2, img.rows/2, ux, uy, resultAdapter); //x1, y1, x2, y2
 			
@@ -84,12 +93,7 @@ int main(int argc, char **argv)
 			if (resultAdapter[0] == 0) sprintf(buffUD, "%c", (resultAdapter[1] | 0b00000000));
 			else sprintf(buffUD, "%c", (resultAdapter[1] | 0b00001000));
 
-			printf("A : %d\n", resultAdapter[1]);
-			printf("B : %d\n", resultAdapter[3]);
-
 			sprintf(buff, "%c", buffLR[0] | buffUD[0]);
-
-			printf("C : %d\n", buff[0]);
 
 			arduino.Write(buff);
 

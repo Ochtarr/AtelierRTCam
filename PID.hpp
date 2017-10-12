@@ -11,9 +11,9 @@
  
  class PID {
  protected:
-     float p;
-     int lar;
-     int haut;
+     float p; 	/*!< Coefficient p*/
+     int lar;	/*!< Largeur de l'image*/
+     int haut;	/*!< Hauteur de l'image*/
  public:
     PID(float mP, int mLar, int mHaut);
     void Calcul(int x1, int y1, int x2, int y2, int *result);
