@@ -17,14 +17,17 @@
  *
  */
 
-PID::PID(float mP, float mI, int mLar, int mHaut)
+PID::PID(float mP, float mI, float mD, int mLar, int mHaut)
 {
     p = mP;
+    i = mI;
+    d = mD;
     lar = mLar;
     haut = mHaut;
-    i = mI;
     integraleX = 0;
     integraleY = 0;
+    deriveX = 0;
+    deriveY = 0;
 }
 
 /**
@@ -52,9 +55,15 @@ void PID::Calcul(int x1, int y1, int x2, int y2, int *result)
 
     integraleX += deltaX;
     integraleY += deltaY;
-    
-    int cmdX = p * deltaX + i * integraleX;
-    int cmdY = p * deltaY + i * integraleY;
+
+    int deriveXLocal = deltaX - deriveX;
+    deriveX = deltaX;
+
+    int deriveYLocal = deltaY - deriveY;
+    deriveY = deltaY;
+
+    int cmdX = p * deltaX + i * integraleX + d * deriveXLocal;
+    int cmdY = p * deltaY + i * integraleY + d * deriveYLocal;
 
     if (cmdX < 0) result[0] = 0; //sens1
     else result[0] = 1; //sens2
