@@ -16,7 +16,7 @@ int main(int argc, char **argv)
 	char *buffUD = new char[1];
     char *buffLR = new char[1];
 
-    PID adapterCommand(1, 400, 200); //coeff P, largeur img, hauteur img
+    PID adapterCommand(1, 0.4, 0, 400, 200); //coeff P, largeur img, hauteur img
     int resultAdapter[4];
 
     /*
@@ -44,5 +44,5 @@ int main(int argc, char **argv)
     
     arduino.Close();
 
-	return 0;
+    return 0;
 }

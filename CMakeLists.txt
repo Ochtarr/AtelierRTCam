@@ -12,7 +12,7 @@ INCLUDE_DIRECTORIES( ${OpenCV_INCLUDE_DIRS} )
 
 # Exécutable "hello", compilé à partir du fichier helloworld.c
 
-add_executable (colorTracking colorTracking.cpp imgProcessing.cpp Serial.cpp)
+add_executable (colorTracking colorTracking.cpp imgProcessing.cpp Serial.cpp PID.cpp)
 enable_testing()
 set(CMAKE_BUILD_TYPE Debug)
 # Hello sera linké avec les bibliothèques d'OpenCV
