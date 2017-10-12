@@ -25,7 +25,7 @@ add_executable (harrisDemo harrisCornerDetection.cpp CornerDetector.cpp )
 target_link_libraries (harrisDemo ${OpenCV_LIBS})
 target_link_libraries (harrisDemo m)
 
-add_executable (harrisTracking harrisTracking.cpp imgProcessing.cpp Serial.cpp )
+add_executable (harrisTracking harrisTracking.cpp imgProcessing.cpp Serial.cpp PID.cpp )
 target_link_libraries (harrisTracking ${OpenCV_LIBS})
 target_link_libraries (harrisTracking m)
 
