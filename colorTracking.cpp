@@ -80,9 +80,10 @@ int main(int argc, char **argv)
 
 		imgProcessing::redTracking(img, 100, 120, ux, uy);
 
-		if (ux > 0 && uy > 0)
+		if (1 == 1)
+		//if (ux > 0 && uy > 0)
 		{
-			PID adapterCommand(1.2, img.cols, img.rows); //coeff P, largeur img, hauteur img
+			PID adapterCommand(1.2, 0.2, img.cols, img.rows); //coeff P, largeur img, hauteur img
 			int resultAdapter[4];
 
 			adapterCommand.Calcul(img.cols/2, img.rows/2, ux, uy, resultAdapter); //x1, y1, x2, y2
