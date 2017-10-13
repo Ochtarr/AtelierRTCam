@@ -13,6 +13,9 @@
 #include <iostream>
 #include <sys/time.h>
 #include <opencv/cv.hpp>
+#include <chrono>
+#include <thread>
+
 
 #include "MatOperator.hpp"
 
@@ -45,7 +48,7 @@ int main(int argc, char **argv)
 	#endif
 
 	float ux = 0, uy = 0;
-	VideoCapture cap(0);
+	VideoCapture cap(1);
 	
 	cv::Mat img;
 	int key = 0;
@@ -80,6 +83,7 @@ int main(int argc, char **argv)
 
 		imgProcessing::redTracking(img, 100, 120, ux, uy);
 
+		std::cout <<  ux - img.cols/2 << " " <<  uy - img.rows/2<< endl;
 		if (1 == 1)
 		//if (ux > 0 && uy > 0)
 		{
@@ -99,6 +103,9 @@ int main(int argc, char **argv)
 			arduino.Write(buff);
 
 			cv::imshow("w", img);
+//				std::this_thread::sleep_for(std::chrono::milliseconds(2000));
+
+
 
 			key = cv::waitKey(20);
 		}

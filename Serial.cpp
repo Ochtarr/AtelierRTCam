@@ -29,7 +29,7 @@ int Serial::Init()
 	else
 	{
 		fcntl(fd1, F_SETFL,0);
-		return 1;
+//		return 1;
 	}
 
 	if(tcgetattr(fd1, &toptions) == -1)
@@ -39,8 +39,8 @@ int Serial::Init()
 	}
 	
 	/* 9600 baud */
-	cfsetispeed(&toptions, B9600) ;
-	cfsetospeed(&toptions, B9600) ;
+	cfsetispeed(&toptions, B115200) ;
+	cfsetospeed(&toptions, B115200) ;
 	
 	/* 8 bits, no parity, no stop bits */
 	toptions.c_cflag &= ~PARENB ;
@@ -93,4 +93,6 @@ void Serial::Close()
 void Serial::Write(char *buff)
 {
 	wr=write(fd1,buff,1);
+	std::this_thread::sleep_for(std::chrono::milliseconds(20));
+
 }

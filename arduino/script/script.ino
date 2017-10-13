@@ -23,7 +23,7 @@ int currentPositionLR = posInitServoLR;
 
 void setup()
 {
-  Serial.begin(9600);
+  Serial.begin(115200);
   servoUD.attach(ServoUD_pin);
   servoLR.attach(ServoLR_pin);
 

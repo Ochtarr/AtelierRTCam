@@ -19,6 +19,7 @@ namespace imgProcessing
 			float threshold = 4,
 			float windows_size = 30,
 			std::vector<cv::Point2d>* res = NULL,
+			cv::Mat* img_comp= NULL,
 			cv::Mat* img_res = NULL,
 			cv::Mat_<float>* grad_vertical = NULL,
 			cv::Mat_<float>* grad_horizontal = NULL,
